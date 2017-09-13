@@ -77,17 +77,18 @@ def main():
     if args.cron:
         cron_writer(proj=args.cron, template="cron")
         cron_writer(proj=args.cron, template="week_cron")
-    if args.nginx == "w":
-        write_nginx_main()
-    if args.nginx == "r":
-        reload_nginx()
-    if not args.nginx in ["r", "w"]:
-        if not isfile("/etc/letsencrypt/live/{0}/fullchain.pem".format(host)):
-            nginx_writer(proj=args.nginx, template="nginx_nossl")
+    if args.nginx:
+        if args.nginx == "w":
+            write_nginx_main()
+        if args.nginx == "r":
             reload_nginx()
-            generate_cert(name=args.nginx, domain=host)
-        nginx_writer(proj=args.nginx, template="nginx")
-        reload_nginx()
+        if not args.nginx in ["r", "w"]:
+            if not isfile("/etc/letsencrypt/live/{0}/fullchain.pem".format(host)):
+                nginx_writer(proj=args.nginx, template="nginx_nossl")
+                reload_nginx()
+                generate_cert(name=args.nginx, domain=host)
+            nginx_writer(proj=args.nginx, template="nginx")
+            reload_nginx()
 
 
 main()
