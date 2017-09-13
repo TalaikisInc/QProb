@@ -2,8 +2,6 @@ language: python
 sudo: true
 python:
  - 3.6
- - "3.7-dev"
- - "nightly"
 
 branches:
   only:
@@ -11,14 +9,11 @@ branches:
 
 addons:
   apt:
-    sources:
-    - ubuntu-toolchain-r-test
     packages:
       - gcc
 
 env:
-  - DJANGO_VERSION=1.11.1
-  - DJANGO_VERSION=1.11.2
+  - DJANGO_VERSION=1.11.5
 
 install:
   - sudo apt-get install pngcrush
