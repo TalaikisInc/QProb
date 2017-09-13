@@ -419,8 +419,8 @@ async def check_img(filenames, post):
 
 
 def clean_images_from_db(loop):
-    filenames = [f for f in listdir(join(settings.BASE_DIR, "uploads")) \
-        if isfile(join(settings.BASE_DIR, "uploads", f))]
+    path = join(settings.BASE_DIR, 'uploads')
+    filenames = [f for f in listdir(path) if isfile(path, f))]
     posts = Post.objects.all()
 
     loop.run_until_complete(gather(*[check_img(filenames=filenames, \
