@@ -1,0 +1,109 @@
+{% load i18n %}
+{% if is_paginated %}
+	<nav>
+		<ul class="pagination">
+					{% if cat %}
+					  {% if page_obj.has_previous %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/source/{{ cat }}/page/{{ page_obj.previous_page_number }}/">{% trans "Previous" %}</a></span></li>
+					  {% endif %}
+					{% elif tag %}
+					  {% if page_obj.has_previous %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/tag/{{ tag }}/page/{{ page_obj.previous_page_number }}/">{% trans "Previous" %}</a></span></li>
+					  {% endif %}
+					{% elif vid %}
+					  {% if page_obj.has_previous %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/videos/{{ vid }}/page/{{ page_obj.previous_page_number }}/">{% trans "Previous" %}</a></span></li>
+					  {% endif %}
+					{% elif twit_slug %}
+					  {% if page_obj.has_previous %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/tweets/{{ twit_slug }}/page/{{ page_obj.previous_page_number }}/">{% trans "Previous" %}</a></span></li>
+					  {% endif %}
+					{% elif sci %}
+						{% if page_obj.has_previous %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/research/{{ sci }}/page/{{ page_obj.previous_page_number }}/">{% trans "Previous" %}</a></span></li>
+					  {% endif %}
+					{% elif book_slug %}
+						{% if page_obj.has_previous %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/books/{{ book_slug }}/page/{{ page_obj.previous_page_number }}/">{% trans "Previous" %}</a></span></li>
+					  {% endif %}
+					{% elif term_slug %}
+						{% if page_obj.has_previous %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/define/{{ term_slug }}/page/{{ page_obj.previous_page_number }}/">{% trans "Previous" %}</a></span></li>
+						{% endif %}
+					{% else %}
+					  {% if page_obj.has_previous %}
+							<li class="page-item"><span class="page-link"><a href="{% url 'post_list' page_obj.previous_page_number %}">{% trans "Previous" %}</a></span></li>
+					  {% endif %}
+					{% endif %}
+									{% if cat %}
+									  {% for page in page_obj.paginator.page_range %}
+												<li class="page-item"><span class="page-link"><a href="{{ base_url }}/source/{{ cat }}/page/{{ page }}/">{{ page }}<span class="sr-only">(current)</span></a></span></li>
+									  {% endfor %}
+									{% elif tag %}
+									  {% for page in page_obj.paginator.page_range %}
+												<li class="page-item"><span class="page-link"><a href="{{ base_url }}/tag/{{ tag }}/page/{{ page }}/">{{ page }}<span class="sr-only">(current)</span></a></span></li>
+									  {% endfor %}
+									{% elif vid %}
+									  {% for page in page_obj.paginator.page_range %}
+												<li class="page-item"><span class="page-link"><a href="{{ base_url }}/videos/{{ vid }}/page/{{ page }}/">{{ page }}<span class="sr-only">(current)</span></a></span></li>
+									  {% endfor %}
+									{% elif twit_slug %}
+										{% for page in page_obj.paginator.page_range %}
+												<li class="page-item"><span class="page-link"><a href="{{ base_url }}/tweets/{{ twit_slug }}/page/{{ page }}/">{{ page }}<span class="sr-only">(current)</span></a></span></li>
+										{% endfor %}
+									{% elif sci %}
+										{% for page in page_obj.paginator.page_range %}
+												<li class="page-item"><span class="page-link"><a href="{{ base_url }}/research/{{ sci }}/page/{{ page }}/">{{ page }}<span class="sr-only">(current)</span></a></span></li>
+										{% endfor %}
+									{% elif book_slug %}
+										{% for page in page_obj.paginator.page_range %}
+												<li class="page-item"><span class="page-link"><a href="{{ base_url }}/books/{{ book_slug }}/page/{{ page }}/">{{ page }}<span class="sr-only">(current)</span></a></span></li>
+										{% endfor %}
+									{% elif term_slug %}
+										{% for page in page_obj.paginator.page_range %}
+												<li class="page-item"><span class="page-link"><a href="{{ base_url }}/define/{{ term_slug }}/page/{{ page }}/">{{ page }}<span class="sr-only">(current)</span></a></span></li>
+										{% endfor %}
+									{% else %}
+										{% for page in page_obj.paginator.page_range %}
+												<li class="page-item"><span class="page-link"><a href="{% url 'post_list' page %}">{{ page }}<span class="sr-only">(current)</span></a></span></li>
+										{% endfor %}
+									{% endif %}
+
+
+					{% if cat %}
+					  {% if page_obj.has_next %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/source/{{ cat }}/page/{{ page_obj.next_page_number }}/">{% trans "Next" %}</a></span></li>
+					  {% endif %}
+					{% elif tag %}
+					  {% if page_obj.has_next %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/tag/{{ tag }}/page/{{ page_obj.next_page_number }}/">{% trans "Next" %}</a></span></li>
+					  {% endif %}
+					{% elif vid %}
+					  {% if page_obj.has_next %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/videos/{{ vid }}/page/{{ page_obj.next_page_number }}/">{% trans "Next" %}</a></span></li>
+					  {% endif %}
+					{% elif twit_slug %}
+					  {% if page_obj.has_next %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/tweets/{{ twit_slug }}/page/{{ page_obj.next_page_number }}/">{% trans "Next" %}</a></span></li>
+					  {% endif %}
+					{% elif sci %}
+						{% if page_obj.has_next %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/research/{{ sci }}/page/{{ page_obj.next_page_number }}/">{% trans "Next" %}</a></span></li>
+						{% endif %}
+					{% elif book_slug %}
+						{% if page_obj.has_next %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/books/{{ book_slug }}/page/{{ page_obj.next_page_number }}/">{% trans "Next" %}</a></span></li>
+						{% endif %}
+					{% elif term_slug %}
+						{% if page_obj.has_next %}
+							<li class="page-item"><span class="page-link"><a href="{{ base_url }}/define/{{ term_slug }}/page/{{ page_obj.next_page_number }}/">{% trans "Next" %}</a></span></li>
+						{% endif %}
+					{% else %}
+					  {% if page_obj.has_next %}
+							<li class="page-item"><span class="page-link"><a href="{% url 'post_list' page_obj.next_page_number %}">{% trans "Next" %}</a></span></li>
+					  {% endif %}
+					{% endif %}
+		</ul>
+	</nav>
+
+{% endif %}

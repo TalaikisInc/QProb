@@ -1,0 +1,214 @@
+{% extends "./base.html" %}
+{% load i18n %}
+{% spaceless %}
+{% block title %}{{ object.title|safe|capfirst }} | {{ sitename }}{% endblock %}
+
+{% block java %}
+		<meta name="twitter:site" content="@{{ twitter_handle }}" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+{% if object.image %}
+    <meta property="og:image" content="{{ object.image.url }}" />
+    <meta property="twitter:image" content="{{ meta_image }}" />
+{% endif %}
+    <meta property="og:description" content="{{ object.title|safe|capfirst }} | {{ sitename }}" />
+		<script id="dsq-count-scr" src="//{{ shot_site_name }}.disqus.com/count.js" async></script>
+{% endblock %}
+
+{% block header %}
+			<h3 class="display-3">{{ object.title|capfirst|safe }}&nbsp;<small class="text-active {{ sentiment_color }}">[{{ object.sentiment }}]</small></h3>
+{% endblock %}
+
+{% block subtitle %}{% endblock %}
+
+{% block content %}
+<div class="card-block">
+		{% autoescape off %}{{ advert }}{% endautoescape %}
+</div>
+	{% if object.image %}
+		<div class="card">
+			<div class="card-block">
+				<img src="{{ base_url }}/{{ object.image.url }}" class="img-responsive img-thumbnail">
+			</div>
+		</div>
+	{% endif %}
+
+	{% autoescape off %}<p>
+{% if object.feed.dead %}
+		{% if object.content %}
+			{{ object.content }}
+		{% else %}
+				{% if object.summary %}{{ object.summary }}{% endif %}
+		{% endif %}</p>
+{% else %}
+		{% if object.summary %}{{ object.summary }}{% endif %}</p>
+{% endif %}
+{% endautoescape %}
+
+	{% include 'aggregator/share_block.html' %}
+
+	<div id="disqus_thread"></div>
+	<script>
+	var disqus_config = function () {
+	this.page.url = '{{ base_url }}/{{ object.slug }}/';
+	this.page.identifier = '{{ object.title }}';
+	};
+
+	(function() {
+	var d = document, s = d.createElement('script');
+	s.src = 'https://{{ shot_site_name }}.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+
+{% if object.books.all %}
+<table class="table">
+	<thead>
+	<tr>
+	{% for book in object.books.all|slice:":3" %}
+		<th><a href="http://www.amazon.com/dp/{{ book.asin }}/?tag={{ assoc_tag }}" rel="nofollow">{{ book.title }}</a></th>
+	{% endfor %}
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	{% for book in object.books.all|slice:":3" %}
+		<td>{% if book.authors %}By {{ book.authors}}{% else %}&nbsp;{% endif %}</td>
+	{% endfor %}
+</tr>
+	<tr>
+	{% for book in object.books.all|slice:":3" %}
+		<td>
+			{% if book.categories.all %}
+				{% for bookcat in book.categories.all %}
+					<a href="{{ base_url }}/books/{{ bookcat.slug }}/" class="card-link">{{ bookcat.title }}</a>
+				{% endfor %}
+			{% else %}
+				&nbsp;
+			{% endif %}
+	</td>
+	{% endfor %}
+	</tr>
+	<tr>
+	{% for book in object.books.all|slice:":3" %}
+		<td>{% if book.image %}<img src="{{ base_url }}/{{ book.image }}" class="img-responsive img-thumbnail">{% else %}&nbsp;{% endif %}</td>
+	{% endfor %}
+	</tr>
+	<tr>
+	{% for book in object.books.all|slice:":3" %}
+		<td>{% if book.price %}{{ book.price }}{{ book.currency }}{% else %}&nbsp;{% endif %}</td>
+	{% endfor %}
+	</tr>
+	<tr>
+	{% for book in object.books.all|slice:":3" %}
+		<td><a href="{% url 'book_detail' book.slug %}">Review</a></td>
+	{% endfor %}
+	</tr>
+</tbody>
+
+<thead>
+<tr>
+{% for book in object.books.all|slice:"4:7" %}
+	<th><a href="http://www.amazon.com/dp/{{ book.asin }}/?tag={{ assoc_tag }}" rel="nofollow">{{ book.title }}</a></th>
+{% endfor %}
+</tr>
+</thead>
+<tbody>
+<tr>
+{% for book in object.books.all|slice:"4:7" %}
+	<td>{% if book.authors %}By {{ book.authors}}{% else %}&nbsp;{% endif %}</td>
+{% endfor %}
+</tr>
+<tr>
+{% for book in object.books.all|slice:"4:7" %}
+	<td>
+		{% if book.categories.all %}
+			{% for bookcat in book.categories.all %}
+				<a href="{{ base_url }}/books/{{ bookcat.slug }}/" class="card-link">{{ bookcat.title }}</a>
+			{% endfor %}
+		{% else %}
+			&nbsp;
+		{% endif %}
+</td>
+{% endfor %}
+</tr>
+<tr>
+{% for book in object.books.all|slice:"4:7" %}
+	<td>{% if book.image %}<img src="{{ base_url }}/{{ book.image }}" class="img-responsive img-thumbnail">{% else %}&nbsp;{% endif %}</td>
+{% endfor %}
+</tr>
+<tr>
+{% for book in object.books.all|slice:"4:7" %}
+	<td>{% if book.price %}{{ book.price }}{{ book.currency }}{% else %}&nbsp;{% endif %}</td>
+{% endfor %}
+</tr>
+<tr>
+{% for book in object.books.all|slice:"4:7" %}
+	<td><a href="{% url 'book_detail' book.slug %}">Review</a></td>
+{% endfor %}
+</tr>
+</tbody>
+</table>
+{% endif %}
+
+	<div class="card bg-inverse bg-primary text-xs-center">
+		<div class="card-block">
+			<blockquote class="card-blockquote">
+				<h5 class="display-5">{% if object.feed.dead %}@{{ object.category }} isn't responding, this is cached copy from <a href="{{ base_url }}/">{{ first_page_title }}</a>*.
+				{% else %}<a href="{{ object.url }}" class="text-info">Read @{{ object.category }}</a>{% endif %}- {{ object.date }}</h5>
+				{% if object.feed.dead %}<p><small>* If we have it.</small></p>{% endif %}
+			</blockquote>
+		</div>
+	</div>
+
+  {% if object.wordcloud %}
+  	<div class="text-xs-center">
+		<div class="card-block">
+    		<a href="{{ base_url }}/{{ object.slug }}/"><img src="{{ base_url }}/{{ object.wordcloud.url }}" class="img-responsive img-thumbnail"></a>
+				{% if object.tags.all %}
+				<div>
+				{% for tag in object.tags.all %}
+					<a href="{{ base_url }}/tag/{{ tag.slug }}/" class="card-link">{{ tag|safe }}</a>
+				{% endfor %}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+  {% endif %}
+
+	{% with object.videos.all.reverse|first as video %}
+	{% if video %}
+	<h4 class="display-4">{% trans "Video" %}</h4>
+	<div class="card">
+		<div class="card-block video">
+			<iframe src="https://www.youtube-nocookie.com/embed/{{ video.video_id }}" frameborder="0" allowfullscreen></iframe>
+		</div>
+		<div class="card">
+			<p>&nbsp;</p>
+			<p class="h6">Video by <a href="{{ base_url }}/videos/{{ video.slug }}/">{{ video.channel_title }}</a> @ {{ video.date }}</p>
+			<p class="card-text">{{ video.description }}</p>
+		</div>
+	</div>
+	{% endif %}
+	{% endwith %}
+
+{% if tweets %}
+	<h4 class="display-4">{% trans "Quantifeed" %}</h4>
+	{% for tweet in tweets %}
+	<div class="card">
+		<div class="card-block">
+			<p class="h6"><a href="https://www.twitter.com/{{ tweet.twitter_handle.twitter_handle }}/status/{{ tweet.tweet_id }}" target="_blank" rel="nofollow">
+				<img src="{{ tweet.profile_image }}" width="32" height="32"  class="card-img-left" />&nbsp;{{ tweet.screen_name }} / @{{ tweet.screen_name }} &middot; {{ tweet.date }}</a></p>
+				<p class="card-text">{{ tweet.content|urlize|safe }}</p>
+		</div>
+	</div>
+	{% empty %}
+	<p class="lead">{% trans "Nothing here yet." %}</p>
+	{% endfor %}
+	{% if twithandle %}
+		<p class="lead"><a href="{{ base_url }}/tweets/{{ twithandle }}/">All by @{{ twithandle }}</a></p>
+	{% endif %}
+	{% endif %}
+{% endblock %}
+{% endspaceless %}

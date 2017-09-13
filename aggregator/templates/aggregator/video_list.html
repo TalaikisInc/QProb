@@ -1,0 +1,40 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block title %}Video channel: {% with object_list|first as f %}{{ f.channel_title }}{% endwith %} |  {{ sitename }}{% endblock %}
+
+{% block header %}
+  <h3 class="display-3">{% trans "Video Channel:" %}</h3>
+{% endblock %}
+
+{% block subtitle %}{% with object_list|first as f %}{{ f.channel_title }}{% endwith %}{% endblock %}
+
+{% block content %}
+
+{% for video in object_list  %}
+		<div class="card">
+				<div class="card-block">
+						<h3 class="card-title">{{ video.title }}</h3>
+							<h6 class="card-subtitle text-muted">Posted on {{ video.date }} by {{ video.channel_title }}</h6>
+				</div>
+				<div class="card-block video">
+          <iframe src="https://www.youtube-nocookie.com/embed/{{ video.video_id }}" frameborder="0" allowfullscreen></iframe>
+          <p>&nbsp;</p>
+          {% if advert %}
+          <p>&nbsp;</p>
+            {% if forloop.counter == 1 or forloop.counter == 3  or forloop.counter == 7 %}
+                    {% autoescape off %}{{ advert }}{% endautoescape %}
+            {% endif %}
+          {% endif %}
+          <p class="card-text">{{ video.description }}</p>
+				</div>
+		</div>
+{% empty %}
+  <h4 class="card-title">{% trans "Nothing here yet." %}</h4>
+{% endfor %}
+
+{% endblock %}
+
+{% block pagination %}
+			{% include 'aggregator/paginator.html' %}
+{% endblock %}

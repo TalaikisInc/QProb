@@ -1,0 +1,28 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block title %}Definitions | {{ sitename }}{% endblock %}
+
+{% block header %}
+		<h3 class="display-3">{{ term_slug|capfirst }}</h3>
+{% endblock %}
+
+{% block content %}
+{% spaceless %}
+
+{% for term in object_list  %}
+		<div class="card">
+				<div class="card-block">
+						<h3 class="card-title">{{ term.term|safe }}</a></h3>
+						<p class="card-text">{% autoescape off %}{{ term.summary }}{% endautoescape %}</p>
+				</div>
+		</div>
+{% empty %}
+<h4 class="card-title">{% trans "Nothing here yet." %}</h4>
+{% endfor %}
+{% endspaceless %}
+{% endblock %}
+
+{% block pagination %}
+			{% include 'aggregator/paginator.html' %}
+{% endblock %}

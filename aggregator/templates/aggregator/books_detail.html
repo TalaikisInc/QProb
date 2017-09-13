@@ -1,0 +1,51 @@
+{% extends "./base.html" %}
+{% load i18n %}
+{% spaceless %}
+{% block title %}{{ object.title|safe|capfirst }} | {{ sitename }}{% endblock %}
+
+{% block header %}
+			<h3 class="display-3">{{ object.title|safe }}</h3>
+{% endblock %}
+
+{% block subtitle %}{% endblock %}
+
+{% block content %}
+	{% if object.image %}
+		<div class="card">
+			<div class="card-block">
+				<img src="{{ base_url }}/{{ object.image }}" class="img-responsive img-thumbnail">
+			</div>
+		</div>
+	{% endif %}
+
+  {% if object.categories.all %}
+  <p>
+    {% for bookcat in object.categories.all %}
+      <a href="{{ base_url }}/books/{{ bookcat.slug }}/" class="card-link">{{ bookcat.title }}</a>
+    {% endfor %}
+  </p>
+  {% endif %}
+
+	{% autoescape off %}<p>{{ object.review }}</p>{% endautoescape %}
+
+	<p>&nbsp;</p>
+		{% if advert %}{% autoescape off %}{{ advert }}{% endautoescape %}{% endif %}
+	<p>&nbsp;</p>
+
+	{% include 'aggregator/share_block.html' %}
+
+	<div class="card bg-inverse bg-primary text-xs-center">
+		<div class="card-block">
+			<blockquote class="card-blockquote">
+				<h5 class="display-5">Get it @ <a href="http://www.amazon.com/dp/{{ object.asin }}/?tag={{ assoc_tag }}" rel="nofollow">{{ object.title }}</a><br />
+          {% if object.authors %}By {{ object.authors}}<br />{% endif %}
+          {% if object.publication_date %}Published: {{ object.publication_date }}<br />{% endif %}
+          {% if object.pages %}Pages: {{ object.pages }}<br />{% endif %}
+          {% if object.price %}{{ object.price }}{{ object.currency }}{% endif %}
+        </h5>
+			</blockquote>
+		</div>
+	</div>
+
+{% endblock %}
+{% endspaceless %}

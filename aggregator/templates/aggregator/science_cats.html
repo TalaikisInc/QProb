@@ -1,0 +1,21 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Quantitative Research" %} | {{ sitename }}{% endblock %}
+
+{% block header %}<h3 class="display-3">{% trans "Quantitative Research" %}</h3>{% endblock %}
+
+{% block content %}
+
+{% for cat in science_cats  %}
+		<ul>
+				<li><h3 class="card-title"><a href="{{ base_url }}/research/{{ cat.slug }}/">{{ cat.title }}</a></h3></li>
+		</ul>
+{% empty %}
+    <h4 class="card-title">{% trans "Nothing here yet." %}</h4>
+{% endfor %}
+
+{% endblock %}
+
+{% block pagination %}
+{% endblock %}

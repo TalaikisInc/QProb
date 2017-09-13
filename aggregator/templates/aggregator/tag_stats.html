@@ -1,0 +1,22 @@
+{% extends "./base.html" %}
+{% load i18n %}
+{% spaceless %}
+
+{% block title %}Tag stats | {{ sitename }}{% endblock %}
+
+{% block header %}
+			<h3 class="display-3">Tag stats</h3>
+{% endblock %}
+
+{% block content %}
+<div class="card-block">
+  <table>
+    <tr><th>Tag</th><th><!-- >Articles --></th></tr>
+		{% for r in res %}
+    <tr><td><a href="{{ base_url }}/tag/{{ r.slug }}/">{{ r.title }}</a></td><td></td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}
+
+{% endspaceless %}

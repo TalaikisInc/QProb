@@ -1,0 +1,23 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Feedback" %} | {{ sitename }}
+{% endblock %}
+
+{% block header %}
+			<h3 class="display-3">{% trans "Give us your thoughts" %}</h3>
+{% endblock %}
+
+{% block subtitle %}{% endblock %}
+
+{% block content %}
+{% if form %}
+<table>
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_table }}
+</table>
+<input type="submit" value="Send!" />
+</form>
+{% endif %}
+{% endblock %}

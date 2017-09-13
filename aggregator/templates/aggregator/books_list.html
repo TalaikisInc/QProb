@@ -1,0 +1,59 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block title %}{{ book_category }} | {{ sitename }}{% endblock %}
+
+{% block header %}
+	{% if book_slug %}
+		<h3 class="display-3">{% trans "Books on " %}{{ book_category }}</h3>
+	{% else %}
+		&nbsp;
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% for book in object_list  %}
+{% spaceless %}
+		<div class="card">
+				<div class="card-block">
+            <h3 class="card-title"><a href="http://www.amazon.com/dp/{{ book.asin }}/?tag={{ assoc_tag }}" rel="nofollow">{{ book.title|safe }}</a></h3>
+						<h6 class="card-subtitle text-muted">
+						{% if book.categories.all %}
+							{% for bookcat in book.categories.all %}
+								<a href="{{ base_url }}/books/{{ bookcat.slug }}/" class="card-link">{{ bookcat.title }}</a>
+							{% endfor %}
+							<br />
+						{% endif %}
+						{% if book.authors %}By {{ book.authors}}<br />{% endif %}
+            {% if book.publication_date %}Published: {{ book.publication_date }}<br />{% endif %}
+            {% if book.pages %}Pages: {{ book.pages }}<br />{% endif %}
+            {% if book.price %}{{ book.price }}{{ book.currency }}{% endif %}
+            </h6>
+				</div>
+				<div class="card-block">
+          {% if book.image %}<img src="{{ base_url }}/{{ book.image }}" class="img-responsive img-thumbnail alignleft" align="left">{% endif %}
+          {% if book.summary %}
+            <p class="card-text">{% autoescape off %}{{ book.summary }}{% endautoescape %}</p>
+          {% endif %}
+					{% if advert %}
+					<p>&nbsp;</p>
+						{% if forloop.counter == 1 or forloop.counter == 3  or forloop.counter == 7 %}
+										{% autoescape off %}{{ advert }}{% endautoescape %}
+						{% endif %}
+					{% endif %}
+					{% if book.review %}
+						<p><a href="{% url 'book_detail' book.slug %}">Review</a></p>
+					{% endif %}
+{% endspaceless %}
+				</div>
+		</div>
+{% empty %}
+<h4 class="card-title">{% trans "Nothing here yet." %}</h4>
+{% endfor %}
+
+{% endblock %}
+
+{% block pagination %}
+			{% include 'aggregator/paginator.html' %}
+{% endblock %}

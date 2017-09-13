@@ -1,0 +1,21 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Books" %} | {{ sitename }}{% endblock %}
+
+{% block header %}<h3 class="display-3">{% trans "Books" %}</h3>{% endblock %}
+
+{% block content %}
+
+{% for cat in book_cats  %}
+		<ul>
+				<li><h3 class="card-title"><a href="{{ base_url }}/books/{{ cat.slug }}/">{{ cat.title }}</a></h3></li>
+		</ul>
+{% empty %}
+    <h4 class="card-title">{% trans "Nothing here yet." %}</h4>
+{% endfor %}
+
+{% endblock %}
+
+{% block pagination %}
+{% endblock %}

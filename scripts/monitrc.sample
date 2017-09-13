@@ -1,0 +1,84 @@
+set daemon 60            # check services at 2-minute intervals
+  with start delay 240    # optional: delay the first check by 4-minutes (by
+set logfile /var/log/monit.log
+set idfile /var/lib/monit/id
+set statefile /var/lib/monit/state
+
+set mailserver <smtp_server>
+  port 2525,
+  username <username> password <password>
+
+set eventqueue
+    basedir /var/lib/monit/events
+    slots 100
+
+set mail-format { from: <from_email> }
+
+set httpd port 2812 and
+    use address <server_ip>
+    allow 0.0.0.0/0.0.0.0
+    allow <username>:<password>
+
+check process mysqld with pidfile /var/run/mysqld/mysqld.pid
+    group db
+    start program = "/etc/init.d/mysql start"
+    stop program = "/etc/init.d/mysql stop"
+    if failed host 127.0.0.1 port 3306 then restart
+    #if 5 restarts within 5 cycles then timeout
+
+check process nginx with pidfile /var/run/nginx.pid
+    group web
+    start program = "/etc/init.d/nginx start"
+    stop program = "/etc/init.d/nginx stop"
+
+check process uwsgi with pidfile /tmp/stckmrkt.pid
+    group web
+    start program = "/home/<project>/uwsgi.sh"
+    stop program = "/bin/kill -INT `cat /tmp/<project>.pid`"
+    if does not exist then exec "/home/<project>/uwsgi.sh"
+    if failed unixsocket /home/<project>/uwsgi.sock then restart
+    if 5 restarts within 5 cycles then timeout
+
+# FIXME memcached doesn't have pid
+check process memcached with pidfile /var/run/memcached.pid
+    group caches
+    start program = "/usr/sbin/service memcached start"
+    stop program = "/usr/sbin/service memcached stop"
+    if failed host 127.0.0.1 port 11211 then restart
+    if 5 restarts within 5 cycles then timeout
+
+#check process redis with pidfile /var/run/redis_6379.pid
+    #start program = "/usr/sbin/service redis_6379 start"
+    #stop program = "/usr/sbin/service redis_6379 stop"
+    #if failed host 127.0.0.1 port 6379 then restart
+    #if 5 restarts within 5 cycles then timeout
+
+check process elastic with pidfile /var/run/elasticsearch/elasticsearch.pid
+    start program = "/etc/init.d/elasticsearch start"
+    stop program = "/etc/init.d/elasticsearch stop"
+    if failed host 127.0.0.1 port 9200 then restart
+    if 5 restarts within 5 cycles then timeout
+
+check process cron with pidfile /var/run/crond.pid
+    group system
+    start program = "/etc/init.d/cron start"
+    stop  program = "/etc/init.d/cron stop"
+
+#check process clamavd with pidfile /var/run/clamav/clamd.pid
+    #start program = "/etc/init.d/clamav-daemon start"
+    #stop  program = "/etc/init.d/clamav-daemon stop"
+    #if failed unixsocket /var/run/clamav/clamd then restart
+
+#check process sshd with pidfile /var/run/sshd.pid
+    #start program  "/etc/init.d/sshd start"
+    #stop program  "/etc/init.d/sshd stop"
+    #f failed port 22 protocol ssh then restart
+
+check process syslogd with pidfile /var/run/rsyslogd.pid
+    group system
+    start program = "/etc/init.d/rsyslog start"
+    stop program = "/etc/init.d/rsyslog stop"
+
+check file rsyslogd_file with path /var/log/syslog
+    group system
+    if timestamp > 65 minutes then alert

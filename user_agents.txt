@@ -1,0 +1,31 @@
+Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.3b) Gecko/20030210
+Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.3b) Gecko/20030125
+Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.3b) Gecko/20021213
+Mozilla/5.0 (X11; U; Linux i686; de-AT; rv:1.3b) Gecko/20030210
+Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.3b) Gecko/20030210
+Mozilla/5.0 (Windows; U; Windows NT 5.1; de-AT; rv:1.3b) Gecko/20030210
+Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.3b) Gecko/20030210
+Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.3b) Gecko/20030204
+Mozilla/5.0 (Windows; U; Windows NT 5.0; de-AT; rv:1.3b) Gecko/20030210
+Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.3b) Gecko/20030210
+Mozilla/5.0 (X11; U; Linux i686; de-AT; rv:1.4) Gecko/20030812
+Mozilla/5.0 (X11; U; Linux i686; de-AT; rv:1.4) Gecko/20030624
+Mozilla/5.0 (X11; U; Linux i586; de-AT; rv:1.4) Gecko/20030908 Debian/1.4-4
+Mozilla/5.0 (Windows; U; WinNT4.0; en-US; rv:1.4) Gecko/20030624
+Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.4) Gecko/20030624
+Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.4) Gecko/20030529
+"Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)"
+"Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)"
+"Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/5.0)"
+Mozilla/5.0 (Windows; U; Windows NT 5.1; de-AT; rv:1.4) Gecko/20030624
+Mozilla/5.0 (Windows; U; Windows NT 5.0; fr-FR; rv:1.4) Gecko/20030624
+Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.4) Gecko/20030624
+Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.4) Gecko/20030612
+Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.4) Gecko/20030529
+Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.0.1) Gecko/20020815
+Mozilla/5.0 (Windows; U; Windows NT 5.0; de-AT; rv:1.0.1) Gecko/20020826
+Mozilla/5.0 (Windows; U; Win 9x 4.90; en-US; rv:1.0.1) Gecko/20020826
+Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.0.1) Gecko/20020903
+Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.0.1) Gecko/20020830
+Mozilla/5.0 (Windows; U; WinNT4.0; en-US; rv:1.0.1) Gecko/20020826
+Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.0.1) Gecko/20020826

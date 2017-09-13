@@ -1,0 +1,57 @@
+{% extends 'aggregator/base.html' %}
+{% load i18n %}
+
+{% block title %}
+{% if query %}{% trans "Results for: " %}{{ query }} | {{ sitename }}{% else %}
+    {% trans "Search" %} | {{ sitename }}
+{% endif %}
+{% endblock %}
+
+{% block header %}
+      {% if query %}
+          <h3 class="display-3">{% trans "Results for: " %}</h1>
+      {% else %}
+          <h3 class="display-3">{{ search_title }}</h1>
+      {% endif %}
+{% endblock %}
+{% spaceless %}
+{% block subtitle %}
+  {% if query %}
+    {{ query }}
+  {% endif %}
+{% endblock %}
+
+
+{% block content %}
+<table>
+    <form action="{{ base_url }}/{{ keyword }}/search/" method="get">
+      <tr><th>{% trans "Search:" %}</td><th><input type="text" maxlength="60" name="q"/></td></tr>
+      <tr><td></td><td></td></tr>
+      <tr><td></td><td><input type="submit" value="{% trans "Find it" %}" /></td></tr>
+    </form>
+</table>
+
+<p>&nbsp;</p>
+
+        {% if query %}
+            {% for result in page.object_list %}
+                  {{ result.rendered|safe }}
+            {% empty %}
+                <p>No results found.</p>
+            {% endfor %}
+
+            {% if page.has_previous or page.has_next %}
+            <ul class="pagination">
+                    {% if page.has_previous %}
+                        <li class="page-item"><span class="page-link">
+                        <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">&laquo; Previous</a></span></li>
+                    {% endif %}
+                    {% if page.has_next %}
+                        <li class="page-item"><span class="page-link">
+                        <a href="?q={{ query }}&amp;page={{ page.next_page_number }}">Next &raquo;</a></span></li>
+                    {% endif %}
+            </ul>
+            {% endif %}
+        {% endif %}
+{% endblock %}
+{% endspaceless %}

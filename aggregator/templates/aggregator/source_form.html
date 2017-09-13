@@ -1,0 +1,21 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Add your blog" %} | {{ sitename }}
+{% endblock %}
+
+{% block header %}
+			<h3 class="display-3">{% trans "Add yours" %}</h3>
+{% endblock %}
+
+{% block subtitle %}{% endblock %}
+
+{% block content %}
+<table>
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_table }}
+</table>
+<input type="submit" value="Send!" />
+</form>
+{% endblock %}

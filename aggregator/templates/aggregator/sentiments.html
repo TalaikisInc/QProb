@@ -1,0 +1,42 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Sentiment over time for {{ site_theme }}" %} | {{ sitename }}{% endblock %}
+
+{% block header %}
+			<h3 class="display-3">Sentiment over time for {{ site_theme }}</h3>
+{% endblock %}
+
+{% block subtitle %}{% endblock %}
+
+{% block java %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Date', 'Sentiment'],
+          {% for s in sentiments %}
+          ['{{ s.date|date:"Y-M-d" }}',  {{ s.sentiment }}],
+          {% endfor %}
+        ]);
+
+        var options = {
+          title: 'Sentiment for {{ site_theme }} (last 2 years)',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+{% endblock %}
+
+{% block content %}
+<div id="curve_chart" class="chart"></div>
+{% if advert %}{% autoescape off %}{{ advert }}{% endautoescape %}{% endif %}
+{% endblock %}

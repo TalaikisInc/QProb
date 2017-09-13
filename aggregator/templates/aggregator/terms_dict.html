@@ -1,0 +1,21 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Definitions" %} | {{ sitename }}{% endblock %}
+
+{% block header %}<h3 class="display-3">{% trans "Definitions" %}</h3>{% endblock %}
+
+{% block content %}
+
+{% for chr in term_dic  %}
+		<ul>
+				<li><h3 class="card-title"><a href="{{ base_url }}/define/{{ chr.slug }}/">{{ chr.term|capfirst }}</a>&nbsp;<small class="text-active">[{{ chr.cnt }}]</small></h3></li>
+		</ul>
+{% empty %}
+    <h4 class="card-title">{% trans "Nothing here yet." %}</h4>
+{% endfor %}
+
+{% endblock %}
+
+{% block pagination %}
+{% endblock %}

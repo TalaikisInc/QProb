@@ -1,0 +1,50 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block title %}{% with object_list|first as f %}{{ f.category }}{% endwith %} | {{ sitename }}{% endblock %}
+
+{% block header %}
+	{% if sci %}
+		<h3 class="display-3">{% with object_list|first as f %}{{ f.category }}{% endwith %}</h3>
+	{% else %}
+		&nbsp;
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% for science in object_list  %}
+{% spaceless %}
+		<div class="card">
+				<div class="card-block">
+          {% if science.file %}
+            <h3 class="card-title"><a href="{{ base_url }}/{{ science.file }}">{{ science.title|safe }}</a></h3>
+          {% else %}
+            <h3 class="card-title"><a href="{{ science.pdf_url }}">{{ science.title|safe }}</a></h3>
+          {% endif %}
+							<h6 class="card-subtitle text-muted"><a href="{{ base_url }}/research/{{ science.category.slug }}/">Research on {{ science.category }}</a></p>
+				</div>
+				<div class="card-block">
+				{% if advert %}
+				<p>&nbsp;</p>
+					{% if forloop.counter == 1 or forloop.counter == 3  or forloop.counter == 7 %}
+									{% autoescape off %}{{ advert }}{% endautoescape %}
+					{% endif %}
+				{% endif %}
+				</div>
+				<div class="card-block">
+          {% if science.summary %}
+            <p class="card-text">{% autoescape off %}{{ science.summary }}{% endautoescape %}</p>
+          {% endif %}
+{% endspaceless %}
+				</div>
+		</div>
+{% empty %}
+<h4 class="card-title">{% trans "Nothing here yet." %}</h4>
+{% endfor %}
+
+{% endblock %}
+
+{% block pagination %}
+			{% include 'aggregator/paginator.html' %}
+{% endblock %}

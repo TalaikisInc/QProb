@@ -1,0 +1,1 @@
+These scripts should be changed to new system, simialr to uwsgi/ nginx config writers or QProb dev ops.

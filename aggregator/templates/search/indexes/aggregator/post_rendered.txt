@@ -1,0 +1,11 @@
+{% spaceless %}
+<div class="card">
+  <div class="card-block">
+      <h3 class="card-title"><a href="{{ base_url }}/{{ object.slug }}/">{{ object.title }}</a> <small class="text-active">&nbsp;[{{ object.sentiment }}]</small></h3>
+      <h6 class="card-subtitle text-muted">By <a href="{{ base_url }}/source/{{ object.category.slug }}/">{{ object.category }}</a> @ <a href="{{ object.url }}" rel="nofollow">[direct link]</a></p>
+  </div>
+  <div class="card-block">
+    <p class="card-text">{% autoescape off %}{{ object.summary }}{% endautoescape %}</p>
+  </div>
+</div>
+{% endspaceless %}

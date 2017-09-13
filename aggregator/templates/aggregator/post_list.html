@@ -1,0 +1,56 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block title %}{{ sitename }} | {% if cat %}{% with object_list|first as f%}{{ f.category }}{% endwith %}
+{% elif tag %}{{ tag.title }}
+{% else %}{{ first_page_title }}
+{% endif %}
+{% endblock %}
+
+{% block header %}
+	{% if cat %}
+		<h3 class="display-3">{% with object_list|first as f%}{{ f.category }}{% endwith %}</h3>
+	{% elif tag %}
+		<h3 class="display-3">{{ tag.title }}</h3>
+	{% else %}
+		<h3 class="display-3">{{ first_page_title }}</h3>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% for post in object_list  %}
+{% spaceless %}
+		<div class="card">
+			{% if advert %}
+			<p>&nbsp;</p>
+				{% if forloop.counter == 1 or forloop.counter == 3  or forloop.counter == 7 %}
+								{% autoescape off %}{{ advert }}{% endautoescape %}
+				{% endif %}
+			{% endif %}
+				<div class="card-block">
+						<h3 class="card-title"><a href="{% url 'post_detail' post.slug %}">{{ post.title|safe|capfirst }}</a>&nbsp;<small class="text-active {{ sentiment_color }}">[{{ post.sentiment }}]</small></h3>
+							<h6 class="card-subtitle text-muted">Posted on {{ post.date }} by <a href="{{ base_url }}/source/{{ post.category.slug }}/">{{ post.category }}</a> @
+								{% if post.feed.dead %}<a href="{% url 'post_detail' post.slug %}">[cached copy]</a>{% else %}<a href="{{ post.url }}" rel="nofollow">[source]</a>{% endif %}</p>
+				</div>
+				<div class="card-block">
+						{% if post.image %}<img src="{{ base_url }}/{{ post.image }}" class="img-responsive img-thumbnail">
+						{% endif %}
+						<p class="card-text">{% autoescape off %}{% if post.summary %}{{ post.summary }}{% endif %}{% endautoescape %}</p>
+{% endspaceless %}
+							{% if post.tags.all %}
+								{% for tag in post.tags.all %}
+									<a href="{{ base_url }}/tag/{{ tag.slug }}/" class="card-link">{{ tag|safe }}</a>
+								{% endfor %}
+							{% endif %}
+				</div>
+		</div>
+{% empty %}
+<h4 class="card-title">{% trans "Nothing here yet." %}</h4>
+{% endfor %}
+
+{% endblock %}
+
+{% block pagination %}
+			{% include 'aggregator/paginator.html' %}
+{% endblock %}

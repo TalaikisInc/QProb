@@ -1,0 +1,8 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Server error 500" %} | {{ sitename }}{% endblock %}
+
+{% block header %}
+  <h3 class="display-3">{% trans "Server error 500" %}</h3>
+{% endblock %}

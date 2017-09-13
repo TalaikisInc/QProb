@@ -1,0 +1,39 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block title %}Twitter Channel: @{{ twit_slug }} |  {{ sitename }}{% endblock %}
+
+{% block header %}
+  <h3 class="display-3">{% trans "Twitter Channel:" %}</h3>
+{% endblock %}
+
+{% block subtitle %}@{{ twit_slug }}{% endblock %}
+
+{% block content %}
+
+{% for tweet in twits %}
+<div class="card">
+  <div class="card-block">
+    <p class="h6"><a href="https://www.twitter.com/{{ tweet.twitter_handle.twitter_handle }}/status/{{ tweet.tweet_id }}" target="_blank" rel="nofollow">
+      <img src="{{ tweet.profile_image }}" width="32" height="32"  class="card-img-left" />&nbsp;{{ tweet.screen_name }} / @{{ tweet.screen_name }} &middot; {{ tweet.date }}</a></p>
+      <p class="card-text">{{ tweet.content|urlize|safe }}</p>
+  </div>
+  {% if advert %}
+  <div class="card-block">
+  <p>&nbsp;</p>
+    {% if forloop.counter == 1 or forloop.counter == 3  or forloop.counter == 7 %}
+            {% autoescape off %}{{ advert }}{% endautoescape %}
+    {% endif %}
+  </div>
+  {% endif %}
+  
+</div>
+{% empty %}
+<p class="lead">{% trans "Nothing here yet." %}</p>
+{% endfor %}
+
+{% endblock %}
+
+{% block pagination %}
+			{% include 'aggregator/paginator.html' %}
+{% endblock %}

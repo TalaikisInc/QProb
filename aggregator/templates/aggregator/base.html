@@ -1,0 +1,228 @@
+{% load i18n %} {% load staticfiles %} {% spaceless %}
+<!DOCTYPE html>
+<html lang="en">
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ base_url }}/uploads/web/base.css">
+    <link rel="shortcut icon" href="{{ base_url }}/uploads/web/favicon.ico" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> {% block java %}{% endblock %}
+    <meta name="propeller" content="953a8d503a29a4a492475e310df84be3" />
+    <script src="{{ base_url }}/uploads/web/ouibounce.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2578395398126606",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+
+<body>
+
+    <header class="navbar navbar-light navbar-static-top bd-navbar">
+        <div class="container">
+            <nav>
+                <div class="collapse navbar-toggleable-xs" id="bd-main-nav">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item{% if request.path == '/'%} active{% endif %}">
+                            <a class="nav-item nav-link" href="{{ base_url }}/">{{ shot_site_name }}</a>
+                        </li>
+                        <li class="nav-item{% if request.path == '/{{ keyword }}/today/'%} active{% endif %}">
+                            <a class="nav-item nav-link" href="{{ base_url }}/{{ keyword }}/today/">{% trans "Today" %}</a>
+                        </li>
+                        <li class="nav-item{% if request.path == '/{{ keyword }}/tag_stats/'%} active{% endif %}">
+                            <a class="nav-item nav-link" href="{{ base_url }}/{{ keyword }}/tag_stats/">{% trans "Tags" %}</a>
+                        </li>
+                        <li class="nav-item{% if request.path == '/{{ keyword }}/sentiment/'%} active{% endif %}">
+                            <a class="nav-item nav-link" href="{{ base_url }}/{{ keyword }}/sentiment/">{% trans "Sentiment" %}</a>
+                        </li>
+                        {% if research_module %}
+                        <li class="nav-item{% if request.path == '/{{ keyword }}/research/'%} active{% endif %}">
+                            <a class="nav-item nav-link" href="{{ base_url }}/{{ keyword }}/research/">{% trans "Research" %}</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item{% if request.path == '/{{ keyword }}/books/'%} active{% endif %}">
+                            <a class="nav-item nav-link" href="{{ base_url }}/{{ keyword }}/books/">{% trans "Books" %}</a>
+                        </li>
+                        {% if definitions_module %}
+                        <li class="nav-item{% if request.path == '/{{ keyword }}/definitions/'%} active{% endif %}">
+                            <a class="nav-item nav-link" href="{{ base_url }}/{{ keyword }}/definitions/">{% trans "Define" %}</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item{% if request.path == '/{{ keyword }}/api/'%} active{% endif %}">
+                            <a class="nav-item nav-link" href="{{ base_url }}/{{ keyword }}/api/">{% trans "API" %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="https://github.com/xenu256/QProb">{% trans "GitHUB repo" %}</a>
+                        </li>
+                        <li class="nav-item{% if request.path == '/{{ keyword }}/add/'%} active{% endif %}">
+                            <a class="nav-item nav-link" href="{{ base_url }}/{{ keyword }}/add/">{% trans "Add source" %}</a>
+                        </li>
+                        <li class="nav-item{% if request.path == '/{{ keyword }}/feedback/'%} active{% endif %}">
+                            <a class="nav-item nav-link" href="{{ base_url }}/{{ keyword }}/feedback/">{% trans "Feedback" %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="{{ base_url }}/{{ keyword }}/feed/">RSS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="https://twitter.com/{{ twitter_handle }}"><img alt="{{ shot_site_name }} Twitter" src="{{ base_url }}/static/images/simple_icons_black/Twitter.png" height=20 width=20></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="https://www.facebook.com/{{ facebook_handle }}/"><img alt="{{ shot_site_name }} Facebook" src="{{ base_url }}/static/images/simple_icons_black/Facebook.png" height=20 width=20></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="https://lt.linkedin.com/in/{{ linkedin_handle }}"><img alt="{{ shot_site_name }} Linkedin" src="{{ base_url }}/static/images/simple_icons_black/LinkedIn.png" height=20 width=20></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="https://plus.google.com/+{{ gplus_handle }}}"><img alt="{{ shot_site_name }} Google+" src="{{ base_url }}/static/images/simple_icons_black/Google+.png" height=20 width=20></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="bd-pageheader bg-primary row p-t-1 p-b-3 m-l-0 m-r-0">
+        <div class="container">
+            <a href="{{ base_url }}/"><img src="{{ base_url }}/uploads/web/{{ logo_handle }}.png"></a>
+            {% block header %} {% endblock %} {% block subtitle %}{% endblock %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row p-t-3">
+            <div class="col-xs-12 col-md-3 push-md-9 bd-sidebar">
+                {% block search %}{% endblock %} {% include 'aggregator/network_sites.html' %} {% if request.get_full_path|slice:"22:25" == '?q=' %} {% else %}
+                
+                <nav class="bd-links" id="docsNavbarContent">
+                    <div class="bd-toc-item ">
+                        <p>&nbsp;</p>{% autoescape off %}{{ advert }}{% endautoescape %}
+                        <p>&nbsp;</p>
+                    </div>
+
+                    <div class="bd-toc-item">
+                        <form action="{{ base_url }}/{{ keyword }}/search/" method="get">
+                            <p><input type="text" style="width:160px;" name="q" /></p>
+                            <input type="submit" value="{{ search_title }}" /></p>
+                        </form>
+                    </div>
+                </nav>
+                {% endif %}
+                <nav class="bd-links" id="docsNavbarContent">
+                    <div class="bd-toc-item ">
+                    </div>
+                </nav>
+                {% for cat in cats %}
+                <nav class="bd-links" id="docsNavbarContent">
+                    <div class="bd-toc-item ">
+                        <a class="bd-toc-link" href="{{ base_url }}/source/{{ cat.slug }}/">{{ cat.title }}</a>&nbsp;<small class="text-active">[{{ cat.cnt }}]</small>
+                    </div>
+
+                    {% if forloop.counter == 50 %}
+                    <div class="bd-toc-item ">
+                        <p>&nbsp;</p>{% autoescape off %}{{ advert }}{% endautoescape %}
+                        <p>&nbsp;</p>
+                    </div>
+                    {% endif %}
+
+                </nav>
+                {% empty %}
+                <nav class="bd-links" id="docsNavbarContent">
+                    <div class="bd-toc-item ">
+                        {% trans "No sources yet." %}
+                    </div>
+                </nav>
+                {% endfor %} {% block sidebar %} {% endblock %} {% endspaceless %}
+            </div>
+            <div class="col-xs-12 col-md-9 pull-md-3 bd-content">
+                {% block content %} {% endblock %} {% spaceless %}
+                <nav class="bd-links" id="docsNavbarContent">
+                    <div class="bd-toc-item ">
+                        <div>
+                            <a href="https://play.google.com/store/apps/details?id={{ mobile_app_url }}">
+                                <img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' class="img-responsive img-thumbnail" /></a>
+                        </div>
+                        <div>
+                            <img src="{{ base_url }}/uploads/screenshots/{{ folder }}.png" class="img-responsive img-thumbnail">
+                        </div>
+                    </div>
+                </nav>
+                {% block pagination %} {% endblock %}
+
+            </div>
+        </div>
+    </div>
+    <footer class="bd-footer text-muted">
+        <div class="container">
+            <ul class="bd-footer-links">
+                {% block links %} {% endblock %}
+            </ul>
+            {% autoescape off %}
+            <p class="small">{{ copyright }} </p>
+            {% endautoescape %}
+        </div>
+    </footer>
+
+    <div class="modal fade" id="exit-modal" tabindex="-1" role="dialog" aria-labelledby="exit-modal-lbl" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="display-5" id="exit-modal-lbl">
+                        Get {{ site_theme }} news delivered to your inbox daily.
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri={{ feedburner_uri }}', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+                        <input type="text" size="30" name="email" placeholder="your@email.com" class="display-5" />
+                        <input type="hidden" value="{{ feedburner_uri }}" name="uri" />
+                        <input type="hidden" name="loc" value="en_US" /> &nbsp;
+                        <input type="submit" value="Subscribe" class="display-5" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-85684141-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var _ouibounce = ouibounce(false, {
+                aggressive: false,
+                sensitivity: 20,
+                timer: 1000,
+                delay: 1000,
+                cookieExpire: 10,
+                //customCookieName: '{{ host }}_bouncer',
+                callback: function() {
+                    jQuery('#exit-modal').modal('show');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
+{% endspaceless %}
