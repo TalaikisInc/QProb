@@ -74,10 +74,10 @@ def write_nginx_main():
 
 
 def main():
-    if args.cron:
+    if not args.cron is None:
         cron_writer(proj=args.cron, template="cron")
         cron_writer(proj=args.cron, template="week_cron")
-    if args.nginx:
+    if not args.nginx is None:
         if args.nginx == "w":
             write_nginx_main()
         if args.nginx == "r":
