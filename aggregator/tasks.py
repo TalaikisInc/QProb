@@ -872,7 +872,7 @@ def banner():
 
 
 def db_cleaner():
-    posts = Post.objetcs.all()
+    posts = Post.objects.all()
     for post in posts:
         post.working_content = ""
         post.feed_content = ""
