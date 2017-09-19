@@ -1,4 +1,4 @@
-# QProb
+# QProb code review branch
 [![Build Status](https://travis-ci.org/xenu256/QProb.svg?branch=master)](https://travis-ci.org/xenu256/QProb)
 
 QProb - automatic resources aggregator/ summarization platform. It is part of old concept about content auto-generation.
