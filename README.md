@@ -7,8 +7,8 @@ QProb - automatic resources aggregator/ summarization platform. It is part of ol
 
 ~~All websites have their own theme and distribute summarized content through various channels, like Twitter, Facebook, Feedburner, RSS.~~
 
-* ~~https://qprob.com/ (quantitative trading)~~
-* ~~https://stckmrktnws.com (stock market)~~
+* ~~https://tradingnews.talaikis.com/ (quantitative trading)~~
+* ~~https://stockmarketnews.talaikis.com (stock market)~~
 * ~~https://bsnssnws.com/ (business)~~
 * ~~https://entreprnrnws.com/ (entrepreneurship)~~
 * ~~https://realestenews.com/ (real estate investing)~~

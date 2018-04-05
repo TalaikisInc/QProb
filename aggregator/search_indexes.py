@@ -1,6 +1,6 @@
 from haystack import indexes
 
-from .models import (Post, Twits, Video)
+from .models import Post, Twits, Video
 from django.utils.html import strip_tags
 from django.conf import settings
 
